@@ -1,51 +1,57 @@
-using Xunit;
-using SmartphoneApp.Services;
-
-public class UserInputServiceTests
+namespace UserInputServiceTests
 {
-    [Fact]
-    public void GetCredentials_ReturnsCorrectTuple()
+    public class UserInputServiceTests
     {
-        // Arrange
-        var input = "testuser\nsecretpass\n";
-        Console.SetIn(new StringReader(input));
-        var service = new UserInputService();
+        [Fact]
+        public void GetCredentials_ReturnsCorrectTuple()
+        {
+            // Arrange
+            var input = "testuser\nsecretpass\n";
+            Console.SetIn(new StringReader(input));
 
-        // Act
-        var (username, password) = service.GetCredentials();
 
-        // Assert
-        Assert.Equal("testuser", username);
-        Assert.Equal("secretpass", password);
-    }
+            // Arrange
+            var logger = new LoggerFactory().CreateLogger<UserInputService>();
+            var service = new UserInputService(logger);
 
-    [Fact]
-    public void GetPercentage_ValidInput_ReturnsParsedInt()
-    {
-        // Arrange
-        var input = "15\n";
-        Console.SetIn(new StringReader(input));
-        var service = new UserInputService();
+            // Act
+            var (username, password) = service.GetCredentials();
 
-        // Act
-        var percent = service.GetPercentage();
+            // Assert
+            Assert.Equal("testuser", username);
+            Assert.Equal("secretpass", password);
+        }
 
-        // Assert
-        Assert.Equal(15, percent);
-    }
+        [Fact]
+        public void GetPercentage_ValidInput_ReturnsParsedInt()
+        {
+            // Arrange
+            var input = "15\n";
+            Console.SetIn(new StringReader(input));
+            var logger = new LoggerFactory().CreateLogger<UserInputService>();
+            var service = new UserInputService(logger);
 
-    [Fact]
-    public void GetPercentage_InvalidThenValidInput_ReturnsValidInt()
-    {
-        // Arrange: first input is invalid, second is valid
-        var input = "abc\n0\n25\n";
-        Console.SetIn(new StringReader(input));
-        var service = new UserInputService();
+            // Act
+            var percent = service.GetPercentage();
 
-        // Act
-        var percent = service.GetPercentage();
+            // Assert
+            Assert.Equal(15, percent);
+        }
 
-        // Assert
-        Assert.Equal(25, percent);
+        [Fact]
+        public void GetPercentage_InvalidThenValidInput_ReturnsValidInt()
+        {
+            // Arrange: first input is invalid, second is valid
+            var input = "abc\n0\n25\n";
+            Console.SetIn(new StringReader(input));
+            var logger = new LoggerFactory().CreateLogger<UserInputService>();
+            var service = new UserInputService(logger);
+
+            // Act
+            var percent = service.GetPercentage();
+
+            // Assert
+            Assert.Equal(25, percent);
+        }
     }
 }
