@@ -44,6 +44,9 @@ namespace SmartphoneApp.Services
                 {
                     _logger.LogError("Login failed: {Message}", loginResult.ErrorMessage);
                     Console.WriteLine("Login failed: " + loginResult.ErrorMessage);
+                    Console.WriteLine("This application requires a vaid username and password.");
+                    Console.ReadLine();
+                    _logger.LogInformation("Application terminated.");
                     return;
                 }
                 _logger.LogInformation("Login successful for user {User}", username);
@@ -68,6 +71,10 @@ namespace SmartphoneApp.Services
                     else
                         Console.WriteLine($"Failed to update {p.Title}");
                 }
+
+                Console.WriteLine("Please press any key to terminate.");
+                Console.ReadKey();
+                _logger.LogInformation("Application terminated.");
             }
             catch (Exception ex)
             {

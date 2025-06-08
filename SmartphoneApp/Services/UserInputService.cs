@@ -25,14 +25,29 @@ namespace SmartphoneApp.Services
         /// <returns>A tuple containing the username and password.</returns>
         public (string Username, string Password) GetCredentials()
         {
+            string username;
+            string password;
+
             try
             {
-                Console.Write("Please enter a Username: ");
-                var username = Console.ReadLine() ?? string.Empty;
+                do
+                {
+                    Console.Write("Please enter a Username: ");
+                    username = (Console.ReadLine() ?? string.Empty).Trim();
+                    if (string.IsNullOrWhiteSpace(username))
+                        Console.WriteLine("Username cannot be empty. Please try again.");
+                } while (string.IsNullOrWhiteSpace(username));
+
                 _logger.LogInformation("User entered username: {username}", username);
 
-                Console.Write("Please enter a Password: ");
-                var password = Console.ReadLine() ?? string.Empty;
+                do
+                {
+                    Console.Write("Please enter a Password: ");
+                    password = ReadPassword().Trim();
+                    if (string.IsNullOrWhiteSpace(password))
+                        Console.WriteLine("Password cannot be empty. Please try again.");
+                } while (string.IsNullOrWhiteSpace(password));
+
                 _logger.LogInformation("User entered password: {password}", "******");
 
                 return (username, password);
@@ -42,6 +57,28 @@ namespace SmartphoneApp.Services
                 _logger.LogError(ex, "An error occurred while getting credentials.");
                 throw;
             }
+        }
+
+        private string ReadPassword()
+        {
+            var password = string.Empty;
+            ConsoleKeyInfo key;
+            do
+            {
+                key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                    password = password[0..^1];
+                    Console.Write("\b \b");
+                }
+                else if (!char.IsControl(key.KeyChar))
+                {
+                    password += key.KeyChar;
+                    Console.Write("*");
+                }
+            } while (key.Key != ConsoleKey.Enter);
+            Console.WriteLine();
+            return password;
         }
 
         /// <summary>
