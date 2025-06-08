@@ -35,9 +35,9 @@ namespace ProductServiceTests
             // Arrange
             var products = new[]
             {
-                new { id = 1, title = "A", brand = "B", price = 1000, description = "desc1" },
-                new { id = 2, title = "C", brand = "D", price = 900, description = "desc2" },
-                new { id = 3, title = "D", brand = "F", price = 800, description = "desc3" }
+                new { id = 1, title = "iPhone 15 Pro", brand = "Apple", price = 1000, description = "iPhone 15 Pro desc" },
+                new { id = 2, title = "iPhone Z", brand = "Apple", price = 900, description = "iPhone Z desc" },
+                new { id = 3, title = "Samsung Galaxy S10", brand = "Samsung", price = 800, description = "Samsung Galaxy S10 desc" }
             };
             var responseObj = new { products };
             var json = JsonSerializer.Serialize(responseObj);
@@ -55,7 +55,7 @@ namespace ProductServiceTests
             // Assert
             Assert.NotNull(result);
             Assert.Equal(3, result.Count);
-            Assert.Equal("A", result[0].Title);
+            Assert.Equal("iPhone 15 Pro", result[0].Title);
             Assert.Equal(1000, result[0].Price);
         }
 

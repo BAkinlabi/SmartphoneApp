@@ -33,7 +33,7 @@ namespace SmartphoneApp.Services
         {
             var client = _factory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token); // Improved header setting
-            var url = $"{_configuration["ApiSettings:BaseUrl"]}/auth/products/category/smartphones?sortBy=price&order=desc&limit=3";
+            var url = $"{_configuration["ApiSettings:BaseUrl"]}/auth/products/category/smartphones?sortBy=price&order=desc&limit={_configuration["ApiSettings:TopProductsNumber"]}";
 
             try
             {
@@ -44,7 +44,7 @@ namespace SmartphoneApp.Services
                 _logger.LogInformation("Api Response: {Content}", content);
 
                 var result = JsonSerializer.Deserialize<ProductListResponse>(content);
-
+                
                 return result?.products?.Select(p => new ProductDTO
                 {
                     Id = p.id,
