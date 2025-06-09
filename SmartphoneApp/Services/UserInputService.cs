@@ -46,7 +46,10 @@ namespace SmartphoneApp.Services
                     Console.ForegroundColor = ConsoleColor.Black;
                     password = (Console.ReadLine() ?? string.Empty).Trim();
                     if (string.IsNullOrWhiteSpace(password))
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("Password cannot be empty. Please try again.");
+                    }
                     Console.ForegroundColor = ConsoleColor.White;
                 } while (string.IsNullOrWhiteSpace(password));
 
