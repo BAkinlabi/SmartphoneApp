@@ -49,6 +49,7 @@ namespace SmartphoneApp.Services
                     _logger.LogInformation("Application terminated.");
                     return;
                 }
+                Console.Clear();
                 _logger.LogInformation("Login successful for user {User}", username);
 
                 // Get the top three most expensive smart phones
