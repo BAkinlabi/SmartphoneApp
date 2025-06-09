@@ -43,7 +43,7 @@ namespace SmartphoneApp.Services
                 do
                 {
                     Console.Write("Please enter a Password: ");
-                    password = ReadPassword().Trim();
+                    password = (Console.ReadLine() ?? string.Empty).Trim();
                     if (string.IsNullOrWhiteSpace(password))
                         Console.WriteLine("Password cannot be empty. Please try again.");
                 } while (string.IsNullOrWhiteSpace(password));
@@ -57,28 +57,6 @@ namespace SmartphoneApp.Services
                 _logger.LogError(ex, "An error occurred while getting credentials.");
                 throw;
             }
-        }
-
-        private string ReadPassword()
-        {
-            var password = string.Empty;
-            ConsoleKeyInfo key;
-            do
-            {
-                key = Console.ReadKey(intercept: true);
-                if (key.Key == ConsoleKey.Backspace && password.Length > 0)
-                {
-                    password = password[0..^1];
-                    Console.Write("\b \b");
-                }
-                else if (!char.IsControl(key.KeyChar))
-                {
-                    password += key.KeyChar;
-                    Console.Write("*");
-                }
-            } while (key.Key != ConsoleKey.Enter);
-            Console.WriteLine();
-            return password;
         }
 
         /// <summary>

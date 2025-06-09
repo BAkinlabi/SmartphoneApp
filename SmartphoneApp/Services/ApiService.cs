@@ -50,7 +50,7 @@ namespace SmartphoneApp.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Login failed");
+                _logger.LogError(ex, "Login failed.");
                 return (false, "", ex.Message);
             }
         }
