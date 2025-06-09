@@ -42,7 +42,7 @@ namespace SmartphoneApp.Services
 
                 do
                 {
-                    Console.Write("Please enter a Password and tab on the enter key: ");
+                    Console.Write("Please enter a Password and press the enter key: ");
                     Console.ForegroundColor = ConsoleColor.Black;
                     password = (Console.ReadLine() ?? string.Empty).Trim();
                     if (string.IsNullOrWhiteSpace(password))
