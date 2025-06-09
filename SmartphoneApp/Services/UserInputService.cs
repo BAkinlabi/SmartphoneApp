@@ -42,10 +42,12 @@ namespace SmartphoneApp.Services
 
                 do
                 {
-                    Console.Write("Please enter a Password: ");
+                    Console.Write("Please enter a Password and tab on the enter key: ");
+                    Console.ForegroundColor = ConsoleColor.Black;
                     password = (Console.ReadLine() ?? string.Empty).Trim();
                     if (string.IsNullOrWhiteSpace(password))
                         Console.WriteLine("Password cannot be empty. Please try again.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 } while (string.IsNullOrWhiteSpace(password));
 
                 _logger.LogInformation("User entered password: {password}", "******");

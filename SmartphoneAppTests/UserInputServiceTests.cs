@@ -6,7 +6,7 @@ namespace UserInputServiceTests
         public void GetCredentials_ReturnsCorrectTuple()
         {
             // Arrange
-            var input = "testuser\nsecretpass\n";
+            var input = "user\nuserpass\n";
             Console.SetIn(new StringReader(input));
 
 
@@ -18,8 +18,8 @@ namespace UserInputServiceTests
             var (username, password) = service.GetCredentials();
 
             // Assert
-            Assert.Equal("testuser", username);
-            Assert.Equal("secretpass", password);
+            Assert.Equal("user", username);
+            Assert.Equal("userpass", password);
         }
 
         [Fact]
